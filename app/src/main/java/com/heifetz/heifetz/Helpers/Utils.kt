@@ -5,9 +5,13 @@ import com.heifetz.heifetz.models.TimeItem
 import com.heifetz.heifetz.models.Times
 import java.util.*
 
+var selectColor = Color.parseColor("#fffd61")
+
 fun coloringTimes(times: Times): Times {
+
+
     val calendar = Calendar.getInstance()
-    var check = true
+    var check = 0
 
     var lastItem: TimeItem? = null
     var date: Date
@@ -29,10 +33,10 @@ fun coloringTimes(times: Times): Times {
 
         if (nowTime in lastTime.time..date.time) {
             if (lastItem != null) {
-                lastItem.color = Color.GREEN
+                lastItem.color = selectColor
             }
-            time.color = Color.GREEN
-            check = check && false
+            time.color = selectColor
+            check++
         }
 
 
@@ -40,9 +44,9 @@ fun coloringTimes(times: Times): Times {
         lastItem = time
     }
 
-    if (check) {
-        times.items.first().color = Color.parseColor("#fffd61")
-        times.items.last().color = Color.parseColor("#fffd61")
+    if (check < 2) {
+        times.items.first().color = selectColor
+        times.items.last().color = selectColor
     }
 
     return times

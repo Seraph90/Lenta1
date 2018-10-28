@@ -32,6 +32,9 @@ class LentaWidget : AppWidgetProvider() {
 
         val views = RemoteViews(context.packageName, R.layout.lenta_widget)
 
+        if (times.items.first().color != Color.TRANSPARENT && times.items.last().color != Color.TRANSPARENT) {
+            text1 = text2.also { text2 = text1 }
+        }
         views.setTextViewText(R.id.lw_textView1, text1)
         views.setTextViewText(R.id.lw_textView2, text2)
 

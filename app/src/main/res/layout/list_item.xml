@@ -2,22 +2,28 @@
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:background="@color/colorAccentDark"
         android:orientation="horizontal">
     <TextView
+            android:visibility="gone"
+            android:background="@color/colorPrimaryDark"
             android:id="@+id/item_id"
             android:layout_width="0dp"
             android:layout_height="0dp"/>
     <TextView
             android:id="@+id/item_title"
-            android:text="TEXT"
+            android:layout_gravity="center"
             android:textSize="16sp"
             android:layout_width="320dp"
             android:layout_height="wrap_content"/>
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
             android:src="@drawable/remove"
+            android:contentDescription="@string/removeBtnText"
     />
 </LinearLayout>
