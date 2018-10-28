@@ -46,9 +46,6 @@ fun coloringTimes(times: Times): Times {
         lastItem = time
     }
 
-    Log.e("TEST", check.toString())
-
-
     if (check < 2) {
         times.items.first().color = selectColor
         times.items.last().color = selectColor
