@@ -1,6 +1,7 @@
 package com.heifetz.heifetz
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
@@ -37,6 +38,11 @@ class Heifetz : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        showListView()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -63,7 +69,17 @@ class Heifetz : AppCompatActivity() {
     private fun showListView() {
         val times = coloringTimes(dbHelper.getSortedTimes())
 
+        var i = 0
+
+        for ((index, item) in times.items.withIndex()) {
+            if (item.color != Color.TRANSPARENT) {
+                i = index
+                break
+            }
+        }
+
         vListView.adapter = Adapter(times.items)
+        vListView.setSelection(i)
     }
 
 }

@@ -24,6 +24,7 @@
             android:scaleX="0.5"
             android:scaleY="0.5"
             android:src="@drawable/remove"
+            android:onClick="removeItem"
             android:contentDescription="@string/removeBtnText"
     />
 </LinearLayout>

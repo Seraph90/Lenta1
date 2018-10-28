@@ -1,6 +1,7 @@
 package com.heifetz.heifetz.Helpers
 
 import android.graphics.Color
+import android.util.Log
 import com.heifetz.heifetz.models.TimeItem
 import com.heifetz.heifetz.models.Times
 import java.util.*
@@ -34,6 +35,7 @@ fun coloringTimes(times: Times): Times {
         if (nowTime in lastTime.time..date.time) {
             if (lastItem != null) {
                 lastItem.color = selectColor
+                check++
             }
             time.color = selectColor
             check++
@@ -43,6 +45,9 @@ fun coloringTimes(times: Times): Times {
         lastTime = date
         lastItem = time
     }
+
+    Log.e("TEST", check.toString())
+
 
     if (check < 2) {
         times.items.first().color = selectColor
