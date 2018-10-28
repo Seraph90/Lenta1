@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Heifetz</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="add_item">Добавить</string>
+    <string name="appwidget_text">00:00</string>
+    <string name="add_widget">Добавить виджет</string>
+</resources>
