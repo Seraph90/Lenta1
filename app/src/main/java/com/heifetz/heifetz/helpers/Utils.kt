@@ -8,8 +8,6 @@ import java.util.*
 var selectColor = Color.parseColor("#fffd61")
 
 fun coloringTimes(times: Times): Times {
-
-
     val calendar = Calendar.getInstance()
     var check = 0
 
@@ -24,6 +22,12 @@ fun coloringTimes(times: Times): Times {
     var lastTime = calendar.time
 
     for (time in times.items) {
+        //TODO Сделать что-то по лучше
+        //Нужно для того когда добавляешь текущее время, подкрашивается 3 времени
+        if (check == 2) {
+            continue
+        }
+
         val hour = time.value.substring(0..1).toInt()
         val minute = time.value.substring(3..4).toInt()
 
@@ -39,7 +43,6 @@ fun coloringTimes(times: Times): Times {
             time.color = selectColor
             check++
         }
-
 
         lastTime = date
         lastItem = time

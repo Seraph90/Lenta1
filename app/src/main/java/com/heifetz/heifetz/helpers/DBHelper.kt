@@ -1,5 +1,6 @@
 package com.heifetz.heifetz.helpers
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -54,7 +55,17 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 1) {
         init(db)
     }
 
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {}
+
+    fun insertTime(time: String): Long {
+        val contentValues = ContentValues()
+        val db = this.writableDatabase
+
+        contentValues.put("value", time)
+        val id = db.insert(TABLE_NAME, null, contentValues)
+        db.close()
+
+        return id
     }
 
     fun restoreDb() {
