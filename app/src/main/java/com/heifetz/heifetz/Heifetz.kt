@@ -9,10 +9,10 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
-import com.heifetz.heifetz.Helpers.Adapter
-import com.heifetz.heifetz.Helpers.DBHelper
-import com.heifetz.heifetz.Helpers.TABLE_NAME
-import com.heifetz.heifetz.Helpers.coloringTimes
+import com.heifetz.heifetz.helpers.Adapter
+import com.heifetz.heifetz.helpers.DBHelper
+import com.heifetz.heifetz.helpers.TABLE_NAME
+import com.heifetz.heifetz.helpers.coloringTimes
 
 class Heifetz : AppCompatActivity() {
 

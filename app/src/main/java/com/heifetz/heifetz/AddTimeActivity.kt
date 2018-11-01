@@ -7,8 +7,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import com.heifetz.heifetz.Helpers.DBHelper
-import com.heifetz.heifetz.Helpers.TABLE_NAME
+import com.heifetz.heifetz.helpers.DBHelper
+import com.heifetz.heifetz.helpers.TABLE_NAME
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern

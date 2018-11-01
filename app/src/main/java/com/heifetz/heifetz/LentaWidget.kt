@@ -5,8 +5,8 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.graphics.Color
 import android.widget.RemoteViews
-import com.heifetz.heifetz.Helpers.DBHelper
-import com.heifetz.heifetz.Helpers.coloringTimes
+import com.heifetz.heifetz.helpers.DBHelper
+import com.heifetz.heifetz.helpers.coloringTimes
 
 class LentaWidget : AppWidgetProvider() {
 

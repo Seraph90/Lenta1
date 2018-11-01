@@ -1,7 +1,6 @@
-package com.heifetz.heifetz.Helpers
+package com.heifetz.heifetz.helpers
 
 import android.graphics.Color
-import android.util.Log
 import com.heifetz.heifetz.models.TimeItem
 import com.heifetz.heifetz.models.Times
 import java.util.*
