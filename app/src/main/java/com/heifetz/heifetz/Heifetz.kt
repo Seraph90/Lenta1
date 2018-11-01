@@ -85,16 +85,17 @@ class Heifetz : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menu!!.add(R.string.restoreDB)
+        menu!!.add(0, 0, 0, R.string.restoreDb)
 
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val title = item!!.title.toString()
-        when {
-            title == resources.getString(R.string.restoreDB) -> {
-                Toast.makeText(this, title, Toast.LENGTH_LONG).show()
+        when (item!!.itemId) {
+            0 -> {
+                dbHelper.restoreDb()
+                Toast.makeText(this, R.string.restoreDbDone, Toast.LENGTH_LONG).show()
+                showListView()
             }
         }
 

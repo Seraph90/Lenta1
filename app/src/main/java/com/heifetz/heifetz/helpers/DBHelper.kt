@@ -8,47 +8,57 @@ import com.heifetz.heifetz.models.Times
 
 const val DB_NAME = "times"
 const val TABLE_NAME = "times"
+const val DROP_TABLE_SQL = "DROP TABLE IF EXISTS $TABLE_NAME"
+const val CREATE_TABLE_SQL = "CREATE TABLE $TABLE_NAME (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT);"
+const val INIT_INSERT_SQL = "INSERT INTO $TABLE_NAME (value) VALUES " +
+        "('10:25'), " +
+        "('10:50'), " +
+        "('11:10'), " +
+        "('11:30'), " +
+        "('11:50'), " +
+        "('12:10'), " +
+        "('12:35'), " +
+        "('13:00'), " +
+        "('13:25'), " +
+        "('13:45'), " +
+        "('14:10'), " +
+        "('14:35'), " +
+        "('15:00'), " +
+        "('15:25'), " +
+        "('16:10'), " +
+        "('16:35'), " +
+        "('17:00'), " +
+        "('17:25'), " +
+        "('17:50'), " +
+        "('18:15'), " +
+        "('18:40'), " +
+        "('19:05'), " +
+        "('19:30'), " +
+        "('19:55'), " +
+        "('20:20'), " +
+        "('20:45'), " +
+        "('21:10'), " +
+        "('21:25'), " +
+        "('21:50'), " +
+        "('22:05');"
 
 class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 1) {
 
+    fun init(db: SQLiteDatabase) {
+        db.execSQL(DROP_TABLE_SQL)
+        db.execSQL(CREATE_TABLE_SQL)
+        db.execSQL(INIT_INSERT_SQL)
+    }
+
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL("CREATE TABLE $TABLE_NAME (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT);")
-        db.execSQL(
-            "INSERT INTO $TABLE_NAME (value) VALUES " +
-                    "('10:25'), " +
-                    "('10:50'), " +
-                    "('11:10'), " +
-                    "('11:30'), " +
-                    "('11:50'), " +
-                    "('12:10'), " +
-                    "('12:35'), " +
-                    "('13:00'), " +
-                    "('13:25'), " +
-                    "('13:45'), " +
-                    "('14:10'), " +
-                    "('14:35'), " +
-                    "('15:00'), " +
-                    "('15:25'), " +
-                    "('16:10'), " +
-                    "('16:35'), " +
-                    "('17:00'), " +
-                    "('17:25'), " +
-                    "('17:50'), " +
-                    "('18:15'), " +
-                    "('18:40'), " +
-                    "('19:05'), " +
-                    "('19:30'), " +
-                    "('19:55'), " +
-                    "('20:20'), " +
-                    "('20:45'), " +
-                    "('21:10'), " +
-                    "('21:25'), " +
-                    "('21:50'), " +
-                    "('22:05');"
-        )
+        init(db)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+    }
+
+    fun restoreDb() {
+        init(this.writableDatabase)
     }
 
     fun getSortedTimes(): Times {
