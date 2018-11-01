@@ -5,10 +5,13 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import com.heifetz.heifetz.helpers.Adapter
 import com.heifetz.heifetz.helpers.DBHelper
 import com.heifetz.heifetz.helpers.TABLE_NAME
@@ -35,7 +38,6 @@ class Heifetz : AppCompatActivity() {
         dbHelper = DBHelper(this)
 
         showListView()
-
     }
 
     override fun onResume() {
@@ -80,6 +82,23 @@ class Heifetz : AppCompatActivity() {
 
         vListView.adapter = Adapter(times.items)
         vListView.setSelection(i)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menu!!.add(R.string.restoreDB)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val title = item!!.title.toString()
+        when {
+            title == resources.getString(R.string.restoreDB) -> {
+                Toast.makeText(this, title, Toast.LENGTH_LONG).show()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }

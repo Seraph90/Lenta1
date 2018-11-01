@@ -35,5 +35,5 @@
             android:text="@string/appwidget_text"
             android:textColor="#ffffff"
             android:textSize="14sp"
-    />
+            android:baselineAligned="false"/>
 </LinearLayout>
