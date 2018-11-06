@@ -4,65 +4,83 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.heifetz.heifetz.models.TimeItem
+import com.heifetz.heifetz.enums.Stops
+import com.heifetz.heifetz.enums.Stops.*
+import com.heifetz.heifetz.models.Time
 import com.heifetz.heifetz.models.Times
 
 const val DB_NAME = "times"
-const val TABLE_NAME = "times"
-const val DROP_TABLE_SQL = "DROP TABLE IF EXISTS $TABLE_NAME"
-const val CREATE_TABLE_SQL = "CREATE TABLE $TABLE_NAME (id INTEGER PRIMARY KEY AUTOINCREMENT, value TEXT);"
-const val INIT_INSERT_SQL = "INSERT INTO $TABLE_NAME (value) VALUES " +
-        "('10:25'), " +
-        "('10:50'), " +
-        "('11:10'), " +
-        "('11:30'), " +
-        "('11:50'), " +
-        "('12:10'), " +
-        "('12:35'), " +
-        "('13:00'), " +
-        "('13:25'), " +
-        "('13:45'), " +
-        "('14:10'), " +
-        "('14:35'), " +
-        "('15:00'), " +
-        "('15:25'), " +
-        "('16:10'), " +
-        "('16:35'), " +
-        "('17:00'), " +
-        "('17:25'), " +
-        "('17:50'), " +
-        "('18:15'), " +
-        "('18:40'), " +
-        "('19:05'), " +
-        "('19:30'), " +
-        "('19:55'), " +
-        "('20:20'), " +
-        "('20:45'), " +
-        "('21:10'), " +
-        "('21:25'), " +
-        "('21:50'), " +
-        "('22:05');"
+const val DB_VERSION = 2
 
-class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 1) {
+const val TIMES_TABLE_NAME = "times"
+
+const val DROP_TABLE_SQL = "DROP TABLE IF EXISTS $TIMES_TABLE_NAME"
+
+const val CREATE_TIMES_TABLE_SQL =
+    "CREATE TABLE $TIMES_TABLE_NAME (id INTEGER PRIMARY KEY AUTOINCREMENT, stop TEXT, value TEXT);"
+
+var INIT_INSERT_TIMES_SQL = """INSERT INTO $TIMES_TABLE_NAME (stop, value) VALUES
+        ('${START.name}', '10:25'),
+        ('${START.name}', '10:50'),
+        ('${START.name}', '11:10'),
+        ('${START.name}', '11:30'),
+        ('${START.name}', '11:50'),
+        ('${START.name}', '12:10'),
+        ('${START.name}', '12:35'),
+        ('${START.name}', '13:00'),
+        ('${START.name}', '13:25'),
+        ('${START.name}', '13:45'),
+        ('${START.name}', '14:10'),
+        ('${START.name}', '14:35'),
+        ('${START.name}', '15:00'),
+        ('${START.name}', '15:25'),
+        ('${START.name}', '16:10'),
+        ('${START.name}', '16:35'),
+        ('${START.name}', '17:00'),
+        ('${START.name}', '17:25'),
+        ('${START.name}', '17:50'),
+        ('${START.name}', '18:15'),
+        ('${START.name}', '18:40'),
+        ('${START.name}', '19:05'),
+        ('${START.name}', '19:30'),
+        ('${START.name}', '19:55'),
+        ('${START.name}', '20:20'),
+        ('${START.name}', '20:45'),
+        ('${START.name}', '21:10'),
+        ('${START.name}', '21:25'),
+        ('${START.name}', '21:50'),
+        ('${START.name}', '22:05'),
+
+        ('${MY.name}', '15:10'),
+        ('${MY.name}', '17:38'),
+        ('${MY.name}', '19:43');
+        """
+
+class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
     fun init(db: SQLiteDatabase) {
         db.execSQL(DROP_TABLE_SQL)
-        db.execSQL(CREATE_TABLE_SQL)
-        db.execSQL(INIT_INSERT_SQL)
+        db.execSQL(DROP_TABLE_SQL)
+        db.execSQL(CREATE_TIMES_TABLE_SQL)
+        db.execSQL(INIT_INSERT_TIMES_SQL)
     }
 
     override fun onCreate(db: SQLiteDatabase) {
         init(db)
     }
 
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {}
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        init(db)
+    }
 
-    fun insertTime(time: String): Long {
+    fun insertTime(time: String, stop: String): Long {
         val contentValues = ContentValues()
         val db = this.writableDatabase
 
         contentValues.put("value", time)
-        val id = db.insert(TABLE_NAME, null, contentValues)
+        contentValues.put("stop", stop)
+
+        val id = db.insert(TIMES_TABLE_NAME, null, contentValues)
         db.close()
 
         return id
@@ -73,21 +91,25 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 1) {
     }
 
     fun getSortedTimes(): Times {
-        val db = this.writableDatabase
-        val cursor = db.query(TABLE_NAME, null, null, null, null, null, null)
-
+        val cursor = this.writableDatabase.query(TIMES_TABLE_NAME, null, null, null, null, null, null)
         val times = Times(arrayListOf())
 
-        if (cursor.moveToFirst()) {
+        if (cursor != null && cursor.moveToFirst()) {
             val idColumnIndex = cursor.getColumnIndex("id")
             val valueColumnIndex = cursor.getColumnIndex("value")
+            val stopColumnIndex = cursor.getColumnIndex("stop")
 
             do {
-                times.items.add(TimeItem(cursor.getInt(idColumnIndex), cursor.getString(valueColumnIndex)))
+                times.items.add(
+                    Time(
+                        cursor.getInt(idColumnIndex),
+                        Stops.valueOf(cursor.getString(stopColumnIndex)),
+                        cursor.getString(valueColumnIndex)
+                    )
+                )
             } while (cursor.moveToNext())
         }
 
-        db.close()
         cursor.close()
 
         times.items.sortBy {

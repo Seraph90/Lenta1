@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.graphics.Color
+import android.os.Bundle
 import android.widget.RemoteViews
 import com.heifetz.heifetz.helpers.DBHelper
 import com.heifetz.heifetz.helpers.coloringTimes

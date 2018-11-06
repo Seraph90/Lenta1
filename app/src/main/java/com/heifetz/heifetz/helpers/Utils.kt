@@ -1,7 +1,8 @@
 package com.heifetz.heifetz.helpers
 
 import android.graphics.Color
-import com.heifetz.heifetz.models.TimeItem
+import com.heifetz.heifetz.enums.Stops
+import com.heifetz.heifetz.models.Time
 import com.heifetz.heifetz.models.Times
 import java.util.*
 
@@ -11,7 +12,7 @@ fun coloringTimes(times: Times): Times {
     val calendar = Calendar.getInstance()
     var check = 0
 
-    var lastItem: TimeItem? = null
+    var last: Time? = null
     var date: Date
 
     val nowTime = Date().time
@@ -22,6 +23,10 @@ fun coloringTimes(times: Times): Times {
     var lastTime = calendar.time
 
     for (time in times.items) {
+        if (time.stop != Stops.START) {
+            continue
+        }
+
         //TODO Сделать что-то по лучше
         //Нужно для того когда добавляешь текущее время, подкрашивается 3 времени
         if (check == 2) {
@@ -36,8 +41,8 @@ fun coloringTimes(times: Times): Times {
         date = calendar.time
 
         if (nowTime in lastTime.time..date.time) {
-            if (lastItem != null) {
-                lastItem.color = selectColor
+            if (last != null) {
+                last.color = selectColor
                 check++
             }
             time.color = selectColor
@@ -45,7 +50,7 @@ fun coloringTimes(times: Times): Times {
         }
 
         lastTime = date
-        lastItem = time
+        last = time
     }
 
     if (check < 2) {

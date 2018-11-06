@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
-    <Button
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <Spinner
+                android:id="@+id/ata_stop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+        />
+        <TimePicker
+                android:id="@+id/ata_timePicker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
             android:id="@+id/ata_addBtn"
-            android:text="@string/add_item"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"/>
-    <TimePicker
-            android:id="@+id/ata_timePicker"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:background="@color/colorAccent"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:scaleType="center"
+            app:srcCompat="@drawable/done"/>
 </FrameLayout>

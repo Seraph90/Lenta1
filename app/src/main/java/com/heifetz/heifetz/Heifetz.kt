@@ -14,7 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.heifetz.heifetz.helpers.Adapter
 import com.heifetz.heifetz.helpers.DBHelper
-import com.heifetz.heifetz.helpers.TABLE_NAME
+import com.heifetz.heifetz.helpers.TIMES_TABLE_NAME
 import com.heifetz.heifetz.helpers.coloringTimes
 
 class Heifetz : AppCompatActivity() {
@@ -63,7 +63,7 @@ class Heifetz : AppCompatActivity() {
 
         val db = dbHelper.writableDatabase
 
-        db.delete(TABLE_NAME, "id = $id", null)
+        db.delete(TIMES_TABLE_NAME, "id = $id", null)
 
         showListView()
     }
