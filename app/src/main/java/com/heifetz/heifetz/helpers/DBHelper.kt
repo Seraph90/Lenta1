@@ -51,6 +51,7 @@ var INIT_INSERT_TIMES_SQL = """INSERT INTO $TIMES_TABLE_NAME (stop, value) VALUE
         ('${START.name}', '21:50'),
         ('${START.name}', '22:05'),
 
+        ('${MY.name}', '14:47'),
         ('${MY.name}', '15:10'),
         ('${MY.name}', '17:38'),
         ('${MY.name}', '19:43');
