@@ -11,4 +11,8 @@ class Time(id: Int, stop: Stops, val value: String) {
     var stop: Stops? = stop
     var color: Int = Color.TRANSPARENT
 
+    fun isStart(): Boolean {
+        return stop == Stops.START
+    }
+
 }
