@@ -22,7 +22,8 @@ import com.heifetz.heifetz.helpers.coloringTimes
 class Heifetz : AppCompatActivity() {
 
     private lateinit var vListView: ListView
-    private lateinit var vButton: FloatingActionButton
+    private lateinit var vAddButton: FloatingActionButton
+    private lateinit var vShowCardButton: FloatingActionButton
 
     private lateinit var dbHelper: DBHelper
 
@@ -44,10 +45,15 @@ class Heifetz : AppCompatActivity() {
         }
 
         vListView = findViewById(R.id.ma_listView)
-        vButton = findViewById(R.id.ma_addBtn)
+        vAddButton = findViewById(R.id.ma_addBtn)
+        vShowCardButton = findViewById(R.id.ma_showCode)
 
-        vButton.setOnClickListener {
+        vAddButton.setOnClickListener {
             startActivityForResult(Intent(this, AddTimeActivity::class.java), 0)
+        }
+
+        vShowCardButton.setOnClickListener {
+            startActivityForResult(Intent(this, Code::class.java), 0)
         }
 
         dbHelper = DBHelper(this)
