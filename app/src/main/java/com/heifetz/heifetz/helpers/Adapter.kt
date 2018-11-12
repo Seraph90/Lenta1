@@ -22,7 +22,7 @@ class Adapter(private val items: ArrayList<Time>) : BaseAdapter() {
 
         vId.text = item.id.toString()
         vTitle.text = item.value
-        vStop.text = if (item.stop == Stops.START) "" else item.stop!!.title
+        vStop.text = if (item.isEnd()) "" else item.stop!!.title
         view.setBackgroundColor(item.color)
 
         return view

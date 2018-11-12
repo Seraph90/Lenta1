@@ -3,6 +3,7 @@ package com.heifetz.heifetz
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -12,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import com.heifetz.heifetz.enums.Stops
 import com.heifetz.heifetz.helpers.Adapter
 import com.heifetz.heifetz.helpers.DBHelper
 import com.heifetz.heifetz.helpers.TIMES_TABLE_NAME
@@ -27,6 +29,19 @@ class Heifetz : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val botNav = findViewById<BottomNavigationView>(R.id.ma_botNav)
+        botNav.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.botNavMenuHome -> {
+                    showListView(Stops.START)
+                }
+                R.id.botNavMenuLenta -> {
+                    showListView(Stops.END)
+                }
+            }
+            return@setOnNavigationItemSelectedListener true
+        }
 
         vListView = findViewById(R.id.ma_listView)
         vButton = findViewById(R.id.ma_addBtn)
@@ -68,8 +83,8 @@ class Heifetz : AppCompatActivity() {
         showListView()
     }
 
-    private fun showListView() {
-        val times = coloringTimes(dbHelper.getSortedTimes())
+    private fun showListView(stop: Stops = Stops.START) {
+        val times = coloringTimes(dbHelper.getSortedTimes(stop))
 
         var i = 0
 

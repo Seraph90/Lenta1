@@ -12,8 +12,8 @@ fun coloringTimes(times: Times): Times {
 
     val nowTime = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
 
-    val prev = times.items.findLast { time -> time.isStart() && time.value <= nowTime }
-    val next = times.items.find { time -> time.isStart() && time.value > nowTime }
+    val prev = times.items.findLast { time -> time.isEnd() && time.value <= nowTime }
+    val next = times.items.find { time -> time.isEnd() && time.value > nowTime }
 
     if (prev == null || next == null) {
         times.items.first().color = primaryColorSelect
@@ -21,7 +21,7 @@ fun coloringTimes(times: Times): Times {
     } else {
         prev.color = primaryColorSelect
         next.color = primaryColorSelect
-        val prevByStop = times.items.findLast { time -> !time.isStart() && time.value in prev.value..next.value }
+        val prevByStop = times.items.findLast { time -> !time.isEnd() && time.value in prev.value..next.value }
 
         if (prevByStop != null) {
             prevByStop.color = secondaryColorSelect

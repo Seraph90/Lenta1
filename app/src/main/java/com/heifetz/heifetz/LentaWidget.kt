@@ -6,6 +6,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.RemoteViews
+import com.heifetz.heifetz.enums.Stops
 import com.heifetz.heifetz.helpers.DBHelper
 import com.heifetz.heifetz.helpers.coloringTimes
 
@@ -16,7 +17,7 @@ class LentaWidget : AppWidgetProvider() {
     private fun updateAppWidget(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetId: Int) {
         dbHelper = DBHelper(context!!)
 
-        val times = coloringTimes(dbHelper.getSortedTimes())
+        val times = coloringTimes(dbHelper.getSortedTimes(Stops.START))
 
         var text1: String? = null
         var text2: String? = null
