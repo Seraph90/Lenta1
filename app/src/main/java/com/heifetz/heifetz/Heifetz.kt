@@ -1,5 +1,6 @@
 package com.heifetz.heifetz
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -19,12 +20,19 @@ import com.heifetz.heifetz.helpers.DBHelper
 import com.heifetz.heifetz.helpers.TIMES_TABLE_NAME
 import com.heifetz.heifetz.helpers.coloringTimes
 
+const val APP_PREFERENCES = "appSettings"
+const val PREFERENCES_CODE = "code"
+const val PREFERENCES_STOP = "stop"
+
 class Heifetz : AppCompatActivity() {
 
     private lateinit var vListView: ListView
-    private lateinit var vButton: FloatingActionButton
+    private lateinit var vAddButton: FloatingActionButton
+    private lateinit var vShowCardButton: FloatingActionButton
 
     private lateinit var dbHelper: DBHelper
+
+    var code: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,10 +52,25 @@ class Heifetz : AppCompatActivity() {
         }
 
         vListView = findViewById(R.id.ma_listView)
-        vButton = findViewById(R.id.ma_addBtn)
+        vAddButton = findViewById(R.id.ma_addBtn)
+        vShowCardButton = findViewById(R.id.ma_showCode)
 
-        vButton.setOnClickListener {
+        val settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
+        code = settings.getString(PREFERENCES_CODE, null)
+        if (code != null) {
+            vShowCardButton.show()
+        } else {
+            vShowCardButton.hide()
+        }
+
+        vAddButton.setOnClickListener {
             startActivityForResult(Intent(this, AddTimeActivity::class.java), 0)
+            overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
+        }
+
+        vShowCardButton.setOnClickListener {
+            startActivity(Intent(this, Code::class.java))
+            overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
         }
 
         dbHelper = DBHelper(this)
@@ -57,6 +80,15 @@ class Heifetz : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        val settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
+        code = settings.getString(PREFERENCES_CODE, "")
+        if (code != "") {
+            vShowCardButton.show()
+        } else {
+            vShowCardButton.hide()
+        }
+
         showListView()
     }
 
@@ -100,7 +132,12 @@ class Heifetz : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menu!!.add(0, 0, 0, R.string.restoreDb)
+        if (menu == null) {
+            return false
+        }
+
+        menu.add(0, 0, 0, R.string.restoreDb)
+        menu.add(0, 1, 0, R.string.settings)
 
         return super.onCreateOptionsMenu(menu)
     }
@@ -111,6 +148,10 @@ class Heifetz : AppCompatActivity() {
                 dbHelper.restoreDb()
                 Toast.makeText(this, R.string.restoreDbDone, Toast.LENGTH_LONG).show()
                 showListView()
+            }
+            1 -> {
+                startActivity(Intent(this, Settings::class.java))
+                overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
             }
         }
 

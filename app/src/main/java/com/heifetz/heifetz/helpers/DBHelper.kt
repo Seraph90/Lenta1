@@ -5,13 +5,14 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.heifetz.heifetz.enums.Stops
-import com.heifetz.heifetz.enums.Stops.*
+import com.heifetz.heifetz.enums.Stops.START
+import com.heifetz.heifetz.enums.Stops.END
+import com.heifetz.heifetz.enums.Stops.SHUVALOVA1
 import com.heifetz.heifetz.models.Time
 import com.heifetz.heifetz.models.Times
-import kotlin.math.E
 
 const val DB_NAME = "times"
-const val DB_VERSION = 2
+const val DB_VERSION = 3
 
 const val TIMES_TABLE_NAME = "times"
 
@@ -52,10 +53,10 @@ var INIT_INSERT_TIMES_SQL = """INSERT INTO $TIMES_TABLE_NAME (stop, value) VALUE
         ('${START.name}', '21:25'), ('${END.name}', '21:50'),
         ('${START.name}', '21:45'), ('${END.name}', '22:05'),
 
-        ('${MY.name}', '14:47'),
-        ('${MY.name}', '15:10'), ('${MY.name}', '15:21'),
-        ('${MY.name}', '17:38'),
-        ('${MY.name}', '19:43');
+        ('${SHUVALOVA1.name}', '14:47'),
+        ('${SHUVALOVA1.name}', '15:10'), ('${SHUVALOVA1.name}', '15:21'),
+        ('${SHUVALOVA1.name}', '17:38'),
+        ('${SHUVALOVA1.name}', '19:43');
         """
 
 class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
@@ -93,12 +94,12 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
     }
 
     fun getSortedTimes(stop: Stops): Times {
-        val s = when (stop) {
+        val stopToShow = when (stop) {
             START -> "stop != '${END.name}'"
             END -> "stop = '${END.name}'"
             else -> null
         }
-        val cursor = this.writableDatabase.query(TIMES_TABLE_NAME, null, s, null, null, null, null)
+        val cursor = this.writableDatabase.query(TIMES_TABLE_NAME, null, stopToShow, null, null, null, null)
         val times = Times(arrayListOf())
 
         if (cursor != null && cursor.moveToFirst()) {
