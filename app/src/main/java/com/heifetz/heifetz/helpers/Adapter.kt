@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.heifetz.heifetz.R
-import com.heifetz.heifetz.enums.Stops
 import com.heifetz.heifetz.models.Time
 
 class Adapter(private val items: ArrayList<Time>) : BaseAdapter() {

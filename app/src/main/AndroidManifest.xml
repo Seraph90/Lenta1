@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddTimeActivity"/>
+        <activity android:name=".Settings"/>
         <activity android:name=".Code" android:theme="@style/Theme.AppCompat.Translucent"/>
         <receiver android:name=".LentaWidget">
             <intent-filter>

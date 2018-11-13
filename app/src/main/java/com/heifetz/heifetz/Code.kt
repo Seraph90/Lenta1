@@ -29,7 +29,9 @@ class DrawView(context: Context, attr: AttributeSet) : View(context, attr) {
 
     @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas?) {
-        var code = "800006435183"
+        val settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
+        var code = settings.getString(PREFERENCES_CODE, "")
+
         val paint = Paint()
         if (canvas != null) {
             val codeHeight = 75F
@@ -38,7 +40,7 @@ class DrawView(context: Context, attr: AttributeSet) : View(context, attr) {
             paint.strokeWidth = strokeWidth
             val midX = width / 2
             val midY = height / 2
-            val str = generateCode(code)
+            val str = generateCode(code!!)
             val strWidth = str.length * strokeWidth
             var i = strokeWidth
             for (b in str) {
@@ -50,7 +52,7 @@ class DrawView(context: Context, attr: AttributeSet) : View(context, attr) {
             }
             paint.textSize = 50F
 
-            code = code.substring(0..3) + "  " + code.substring(4..7) + "  " + code.substring(8..11)
+            code = code.replace("(.{4})".toRegex(), "$1 ")
 
             val textWidth = paint.measureText(code)
 
