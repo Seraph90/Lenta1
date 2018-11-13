@@ -18,6 +18,11 @@ class Code : Activity() {
         setContentView(R.layout.code)
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
+    }
+
 }
 
 class DrawView(context: Context, attr: AttributeSet) : View(context, attr) {

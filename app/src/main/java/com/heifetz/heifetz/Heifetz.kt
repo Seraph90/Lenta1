@@ -50,10 +50,12 @@ class Heifetz : AppCompatActivity() {
 
         vAddButton.setOnClickListener {
             startActivityForResult(Intent(this, AddTimeActivity::class.java), 0)
+            overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
         }
 
         vShowCardButton.setOnClickListener {
-            startActivityForResult(Intent(this, Code::class.java), 0)
+            startActivity(Intent(this, Code::class.java))
+            overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
         }
 
         dbHelper = DBHelper(this)

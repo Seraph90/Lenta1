@@ -5,10 +5,11 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.heifetz.heifetz.enums.Stops
-import com.heifetz.heifetz.enums.Stops.*
+import com.heifetz.heifetz.enums.Stops.START
+import com.heifetz.heifetz.enums.Stops.END
+import com.heifetz.heifetz.enums.Stops.MY
 import com.heifetz.heifetz.models.Time
 import com.heifetz.heifetz.models.Times
-import kotlin.math.E
 
 const val DB_NAME = "times"
 const val DB_VERSION = 2

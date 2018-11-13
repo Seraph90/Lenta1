@@ -34,7 +34,13 @@ class AddTimeActivity : Activity() {
             setResult(0, intent)
 
             finish()
+            overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
     }
 
 }
