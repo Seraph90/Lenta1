@@ -8,7 +8,7 @@
     <string name="restoreDb">Востановить данные</string>
     <string name="settings">Настройки</string>
 
-    <string name="restoreDbDone">База востановлена</string>
+    <string name="restoreDbDone">База восстановлена</string>
     <string name="removeBtnText">Remove</string>
 
     <string name="botNavMenuHome">Дом</string>
