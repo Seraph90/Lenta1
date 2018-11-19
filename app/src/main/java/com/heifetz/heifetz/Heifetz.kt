@@ -132,24 +132,19 @@ class Heifetz : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (menu == null) {
-            return false
-        }
-
-        menu.add(0, 0, 0, R.string.restoreDb)
-        menu.add(0, 1, 0, R.string.settings)
+        menuInflater.inflate(R.menu.main_menu, menu)
 
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
-            0 -> {
+            R.id.mainMenuRestoreDb -> {
                 dbHelper.restoreDb()
                 Toast.makeText(this, R.string.restoreDbDone, Toast.LENGTH_LONG).show()
                 showListView()
             }
-            1 -> {
+            R.id.mainMenuSettings -> {
                 startActivity(Intent(this, Settings::class.java))
                 overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)
             }
