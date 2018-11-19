@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.DropBoxManager
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,13 +16,17 @@ import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import com.dropbox.client2.DropboxAPI
+import com.dropbox.client2.android.AndroidAuthSession
+import com.dropbox.client2.session.AppKeyPair
 import com.heifetz.heifetz.enums.Stops
-import com.heifetz.heifetz.helpers.Adapter
-import com.heifetz.heifetz.helpers.DBHelper
-import com.heifetz.heifetz.helpers.TIMES_TABLE_NAME
-import com.heifetz.heifetz.helpers.coloringTimes
+import com.heifetz.heifetz.helpers.*
+import java.io.BufferedWriter
+import java.io.File
+import java.io.OutputStreamWriter
 
 const val APP_PREFERENCES = "appSettings"
+const val PREFERENCES_DB_ACCESS_TOKEN = "db_access_token"
 const val PREFERENCES_CODE = "code"
 const val PREFERENCES_STOP = "stop"
 
@@ -32,10 +38,16 @@ class Heifetz : AppCompatActivity() {
 
     private lateinit var dbHelper: DBHelper
 
+
+    private lateinit var mDBApi: DropboxAPI<AndroidAuthSession>
+
     var code: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        mDBApi = dropBoxAuth(this)
+
         setContentView(R.layout.activity_main)
 
         val botNav = findViewById<BottomNavigationView>(R.id.ma_botNav)
@@ -80,6 +92,18 @@ class Heifetz : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        getAccessToken(this, mDBApi)
+
+        val bufferedWriter = BufferedWriter(OutputStreamWriter(openFileOutput("asd", Context.MODE_PRIVATE)))
+        bufferedWriter.write("asdqwfv")
+        bufferedWriter.close()
+
+        val file = File("asd")
+        val fio = openFileInput("asd")
+        val response = mDBApi.putFile("/asd.txt", fio, file.length(), null, null)
+
+    Log.i("DbExampleLog", "The uploaded file's rev is: " + response.rev)
 
         val settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
         code = settings.getString(PREFERENCES_CODE, "")
