@@ -139,11 +139,6 @@ class Heifetz : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
-            R.id.mainMenuRestoreDb -> {
-                dbHelper.restoreDb()
-                Toast.makeText(this, R.string.restoreDbDone, Toast.LENGTH_LONG).show()
-                showListView()
-            }
             R.id.mainMenuSettings -> {
                 startActivity(Intent(this, Settings::class.java))
                 overridePendingTransition(R.anim.alpha_in, R.anim.alpha_out)

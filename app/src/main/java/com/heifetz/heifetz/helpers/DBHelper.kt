@@ -53,10 +53,12 @@ var INIT_INSERT_TIMES_SQL = """INSERT INTO $TIMES_TABLE_NAME (stop, value) VALUE
         ('${START.name}', '21:25'), ('${END.name}', '21:50'),
         ('${START.name}', '21:45'), ('${END.name}', '22:05'),
 
+        ('${SHUVALOVA1.name}', '13:11'),
+        ('${SHUVALOVA1.name}', '14:19'),
         ('${SHUVALOVA1.name}', '14:47'),
         ('${SHUVALOVA1.name}', '15:10'), ('${SHUVALOVA1.name}', '15:21'),
         ('${SHUVALOVA1.name}', '17:38'),
-        ('${SHUVALOVA1.name}', '19:43');
+        ('${SHUVALOVA1.name}', '19:42'), ('${SHUVALOVA1.name}', '19:43');
         """
 
 class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {

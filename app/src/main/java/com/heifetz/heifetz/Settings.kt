@@ -4,8 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.*
 import com.heifetz.heifetz.enums.Stops
+import com.heifetz.heifetz.helpers.DBHelper
 
 class Settings : Activity() {
 
@@ -16,7 +19,8 @@ class Settings : Activity() {
         val settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
 
         val vEditCode = findViewById<EditText>(R.id.s_editCode)
-        val vButton = findViewById<FloatingActionButton>(R.id.s_saveBtn)
+        val vOkButton = findViewById<FloatingActionButton>(R.id.s_saveBtn)
+        val vRestoreButton = findViewById<FloatingActionButton>(R.id.s_dbRestoreBtn)
 
         val code = settings.getString(PREFERENCES_CODE, null)
         if (code != null) {
@@ -30,7 +34,7 @@ class Settings : Activity() {
             vSpinner.setSelection(stop)
         }
 
-        vButton.setOnClickListener {
+        vOkButton.setOnClickListener {
             val editor = settings.edit()
             editor.putString(PREFERENCES_CODE, vEditCode.text.toString())
             editor.putInt(PREFERENCES_STOP, vSpinner.selectedItemPosition)
@@ -39,6 +43,12 @@ class Settings : Activity() {
             finish()
         }
 
+        vRestoreButton.setOnClickListener {
+            val dbHelper = DBHelper(this)
+
+            dbHelper.restoreDb()
+            Toast.makeText(this, R.string.restoreDbDone, Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onBackPressed() {
