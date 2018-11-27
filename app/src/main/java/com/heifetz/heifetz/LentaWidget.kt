@@ -8,6 +8,7 @@ import android.widget.RemoteViews
 import com.heifetz.heifetz.enums.Stops
 import com.heifetz.heifetz.helpers.DBHelper
 import com.heifetz.heifetz.helpers.coloringTimes
+import com.heifetz.heifetz.helpers.primaryColorSelect
 import java.util.*
 
 class LentaWidget : AppWidgetProvider() {
@@ -39,7 +40,7 @@ class LentaWidget : AppWidgetProvider() {
         var text2: String? = null
 
         for (time in times.items) {
-            if (time.color != Color.TRANSPARENT) {
+            if (time.color == primaryColorSelect) {
                 if (text1 == null) {
                     text1 = time.value
                 } else if (text2 == null) {
