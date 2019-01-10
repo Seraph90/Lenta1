@@ -55,12 +55,16 @@ var INIT_INSERT_TIMES_SQL = """INSERT INTO $TIMES_TABLE_NAME (stop, value) VALUE
 
         ('${SHUVALOVA1.name}', '13:11'),
         ('${SHUVALOVA1.name}', '14:19'),
-        ('${SHUVALOVA1.name}', '14:47'),
+        ('${SHUVALOVA1.name}', '14:46'), ('${SHUVALOVA1.name}', '14:47'),
         ('${SHUVALOVA1.name}', '15:10'), ('${SHUVALOVA1.name}', '15:21'),
+        ('${SHUVALOVA1.name}', '15:35'),
+        ('${SHUVALOVA1.name}', '16:48'),
         ('${SHUVALOVA1.name}', '17:14'),
-        ('${SHUVALOVA1.name}', '17:38'),
+        ('${SHUVALOVA1.name}', '17:38'), ('${SHUVALOVA1.name}', '17:39'),
+        ('${SHUVALOVA1.name}', '18:20'),
         ('${SHUVALOVA1.name}', '19:16'),
-        ('${SHUVALOVA1.name}', '19:42'), ('${SHUVALOVA1.name}', '19:43'), ('${SHUVALOVA1.name}', '19:43');
+        ('${SHUVALOVA1.name}', '19:42'), ('${SHUVALOVA1.name}', '19:42'), ('${SHUVALOVA1.name}', '19:43'), ('${SHUVALOVA1.name}', '19:43'), ('${SHUVALOVA1.name}', '19:43'),
+        ('${SHUVALOVA1.name}', '21:15');
         """
 
 class DBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {

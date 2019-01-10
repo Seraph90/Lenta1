@@ -13,7 +13,6 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
-import android.widget.Toast
 import com.heifetz.heifetz.enums.Stops
 import com.heifetz.heifetz.helpers.Adapter
 import com.heifetz.heifetz.helpers.DBHelper
